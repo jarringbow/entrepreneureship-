@@ -1,194 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Custom Eggs - Personalized Egg Experience</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Eggs</title>
+
 <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fffbea; }
-    header { background: #f7d382; padding: 30px 0; text-align: center; }
-    nav { background: #eed097; padding: 10px 0; text-align: center; }
-    nav a { margin: 0 20px; color: #61350b; text-decoration: none; font-weight: bold; }
-    section { max-width: 900px; margin: 40px auto; background: #fff8e6; padding: 30px; border-radius: 8px; }
-    h1, h2 { color: #733c00; margin-bottom: 16px; }
-    p { font-size: 17px; line-height: 1.6; }
-    /* About Me */
-    #about-me { margin-top: 25px; }
-    /* Reviews slideshow */
-    .review-container { max-width: 600px; margin: 30px auto; position: relative; text-align: center; }
-    .review { display: none; font-size: 18px; padding: 20px; background: #fdeac6; border-radius: 8px; }
-    .review.active { display: block; }
-    .review-buttons { margin-top: 20px; }
-    button { padding: 10px 20px; margin: 0 10px; font-size: 16px; border-radius: 4px; border: none; background: #e1a93a; color: #fff; cursor: pointer; }
-    button:hover { background: #d18a36; }
-    /* Review list and interact - optional for future expansion */
-    #reviews-list { margin-top: 40px; font-style: italic; }
-    /* Contact form styling */
-    form { display: flex; flex-direction: column; gap: 15px; }
-    input, select, textarea { padding: 8px; border-radius: 4px; border: 1px solid #b89e6b; }
-    button { padding: 10px; background: #e1a93a; color: #fff; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,system-ui,sans-serif}
+body{background:linear-gradient(180deg,#fff7e6,#fff);color:#2b1b00}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+/* Header */
+header{
+  min-height:100vh;
+  background:radial-gradient(circle,#ffd36a,#f4b400);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:40px
+}
+header h1{font-size:clamp(3rem,6vw,4rem);animation:fadeUp 1s}
+header p{font-size:1.3rem;margin-top:15px}
+.hero-btn{
+  margin-top:35px;padding:16px 45px;border-radius:50px;
+  background:#2b1b00;color:#fff;border:none;font-size:1.1rem;
+  cursor:pointer;animation:pulse 2.5s infinite
+}
+
+/* Sections */
+section{max-width:1200px;margin:90px auto;padding:0 20px}
+h2{font-size:2.4rem;margin-bottom:25px}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.card{background:#fff;padding:30px;border-radius:22px;box-shadow:0 25px 50px rgba(0,0,0,.12)}
+
+/* Customizer */
+.customizer{
+  background:#fff;padding:40px;border-radius:30px;
+  box-shadow:0 35px 70px rgba(0,0,0,.15)
+}
+.select-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px
+}
+label{font-weight:600}
+select{
+  width:100%;padding:14px;border-radius:15px;border:2px solid #f4b400
+}
+
+/* Subscription */
+.subscription{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px
+}
+.sub-box{
+  border:2px solid #ddd;
+  padding:20px;
+  border-radius:20px;
+  cursor:pointer;
+  transition:.3s;
+}
+.sub-box.active{
+  border-color:#f4b400;
+  background:#fff8e3;
+}
+
+/* Egg Preview */
+.egg-preview{
+  margin:35px auto;width:140px;height:180px;
+  border-radius:50% 50% 45% 45%;
+  background:#fff;
+  box-shadow:inset 0 0 0 12px #eee,0 15px 40px rgba(0,0,0,.2)
+}
+
+/* Result */
+.result{
+  margin-top:30px;background:#fff8e3;padding:25px;
+  border-radius:20px;border-left:6px solid #f4b400
+}
+.meter{height:18px;background:#ddd;border-radius:10px;overflow:hidden;margin-top:8px}
+.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#f4b400,#4caf50);transition:.6s}
+
+/* Buttons */
+.order-btn{
+  margin-top:20px;padding:14px 35px;border-radius:40px;
+  border:none;background:#2b1b00;color:#fff;font-size:1rem;cursor:pointer
+}
+
+/* Contact */
+.contact-box{
+  background:#fff;padding:40px;border-radius:30px;
+  box-shadow:0 35px 70px rgba(0,0,0,.15)
+}
+form{display:grid;gap:18px}
+input,textarea{padding:14px;border-radius:14px;border:1px solid #ccc}
+
+/* Footer */
+footer{margin-top:100px;background:#2b1b00;color:#fff}
+.footer-bottom{background:#1f1300;padding:15px;text-align:center;font-size:.9rem}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>Custom Eggs</h1>
-<p>Your Personalized Egg Experience</p>
+  <div>
+    <h1>Custom Eggs</h1>
+    <p>Design eggs by science, nutrition & care</p>
+    <button class="hero-btn" onclick="document.getElementById('customizer').scrollIntoView({behavior:'smooth'})">
+      Order Now
+    </button>
+  </div>
 </header>
-<nav>
-<a href="#about">About</a>
-<a href="#customize">Customize Eggs</a>
-<a href="#reviews">Reviews</a>
-<a href="#contact">Contact</a>
-</nav>
 
-<!-- About Me Section -->
-<section id="about">
-<h2>About Me</h2>
-<p>I am a student passionate about innovative food science and sustainable poultry farming. I am seeking to create nutritious, colorful, and customizable eggs by blending scientific research with entrepreneurial spirit. Thank you for visiting!</p>
+<section>
+  <h2>Why Custom Eggs?</h2>
+  <div class="cards">
+    <div class="card">🎨 Natural yolk color</div>
+    <div class="card">🥚 Nutrition-first design</div>
+    <div class="card">🌱 Ethical feeding</div>
+  </div>
 </section>
 
-<!-- Review Slideshow -->
-<section id="reviews">
-<h2>Customer Reviews</h2>
-<div class="review-container">
-    <div class="review active" id="review1">
-        <p>"Absolutely loved the personalized eggs! The yolk colors are vibrant, and the quality is top-notch." <br><br>- Jane D., Food Blogger</p>
+<section id="customizer">
+  <h2>Customize Your Eggs</h2>
+
+  <div class="customizer">
+
+    <div class="select-row">
+      <div>
+        <label>Yolk Color</label>
+        <select id="yolk">
+          <option value="">Select</option>
+          <option>White</option>
+          <option>Pale Yellow</option>
+          <option>Golden Yellow</option>
+          <option>Deep Orange</option>
+          <option>Greenish</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Nutrition Goal</label>
+        <select id="nutrition">
+          <option value="">Select</option>
+          <option>General</option>
+          <option>High Protein</option>
+          <option>Low Cholesterol</option>
+          <option>Omega-3 Rich</option>
+        </select>
+      </div>
     </div>
-    <div class="review" id="review2">
-        <p>"Innovative idea and great tasting eggs! My family loves the healthy options." <br><br>- Alex K., Food Scientist</p>
+
+    <h3 style="margin-top:30px">Choose Plan</h3>
+    <div class="subscription">
+      <div class="sub-box active" onclick="setSub('One-time',0,this)">One-time Order</div>
+      <div class="sub-box" onclick="setSub('Weekly',10,this)">Weekly (10% off)</div>
+      <div class="sub-box" onclick="setSub('Monthly',20,this)">Monthly (20% off)</div>
     </div>
-    <div class="review" id="review3">
-        <p>"Unique product, easy to order, and excellent customer service!" <br><br>- Minor Internet Celebrity, Food Enthusiast</p>
-    </div>
-    <div class="review" id="review4">
-        <p>"A truly scientific approach to egg color and nutrition. Highly recommended!" <br><br>- Dr. Food Science, PhD</p>
-    </div>
-    <!-- Add more reviews as needed, total of 10 -->
-</div>
-<!-- Buttons for interactivity -->
-<div class="review-buttons">
-    <button onclick="prevReview()">Previous</button>
-    <button onclick="nextReview()">Next</button>
-</div>
-</section>
-<section id="customize">
-    <h2>Customize Your Eggs</h2>
-    <table>
-        <tr>
-            <th>Select Yolk Color</th>
-            <th>Select Nutritional Property</th>
-            <th>Suggested Breed</th>
-            <th>Suggested Diet</th>
-        </tr>
-        <tr>
-            <td>
-                <select id="yolk" onchange="customize()">
-                    <option>Select</option>
-                    <option>White</option>
-                    <option>Pale Yellow</option>
-                    <option>Golden Yellow</option>
-                    <option>Deep Orange</option>
-                    <option>Greenish</option>
-                </select>
-            </td>
-            <td>
-                <select id="nutrition" onchange="customize()">
-                    <option>Select</option>
-                    <option>General Nutrition</option>
-                    <option>High Protein</option>
-                    <option>Low Cholesterol</option>
-                    <option>Rich in Omega-3</option>
-                </select>
-            </td>
-            <td id="resultBreed">Please choose options</td>
-            <td id="resultDiet">Please choose options</td>
-        </tr>
-    </table>
+
+    <div class="egg-preview" id="egg"></div>
+
     <div class="result">
-        <strong>Result:</strong> Update your options above to see your ideal hen breed and diet!
+      <p><strong>Breed:</strong> <span id="breed">—</span></p>
+      <p><strong>Diet:</strong> <span id="diet">—</span></p>
+      <p><strong>Plan:</strong> <span id="plan">One-time</span></p>
+      <p><strong>Price (₹ / 12 eggs):</strong> <span id="price">—</span></p>
+
+      <p><strong>Nutrition Score</strong></p>
+      <div class="meter"><span id="score"></span></div>
+
+      <p><strong>Order Summary</strong></p>
+      <p id="summary">—</p>
+
+      <button class="order-btn" onclick="proceedToOrder()">Proceed to Order</button>
     </div>
+  </div>
 </section>
 
-<script>
-    function customize() {
-        var yolk = document.getElementById('yolk').value;
-        var nutrition = document.getElementById('nutrition').value;
-        var breed = '';
-        var diet = '';
-
-        // Suggest breed and diet by yolk color and nutrition requirement
-        if (yolk === 'White') {
-            breed = 'Leghorn';
-            diet = 'White maize, wheat, minimal pigments';
-        } else if (yolk === 'Pale Yellow') {
-            breed = 'Leghorn or ISA Brown';
-            diet = 'General grains, less carotenoid-rich plants';
-        } else if (yolk === 'Golden Yellow') {
-            breed = 'Marans or Rhode Island Red';
-            diet = 'Maize, corn, some marigold petals for color';
-        } else if (yolk === 'Deep Orange') {
-            breed = 'Marans or Legbar';
-            diet = 'Alfalfa, marigold petals, green leafy vegetables';
-        } else if (yolk === 'Greenish') {
-            breed = 'Araucana';
-            diet = 'High in leafy greens, spirulina, marigold petals';
-        }
-
-        if (nutrition === 'High Protein') {
-            diet += ', soybean meal, sunflower seeds';
-        } else if (nutrition === 'Low Cholesterol') {
-            diet += ', flaxseed, canola oil, omega-3 supplements';
-        } else if (nutrition === 'Rich in Omega-3') {
-            diet += ', flaxseed, fish meal or chia';
-        } else if (nutrition === 'General Nutrition') {
-            diet += '';
-        }
-
-        document.getElementById('resultBreed').innerText = breed || 'Please choose options';
-        document.getElementById('resultDiet').innerText = diet || 'Please choose options';
-    }
-</script>
-
-
-<!-- Contact Form -->
 <section id="contact">
-<h2>Contact Us / Place Your Order</h2>
-<form>
-<label for="name">Name:</label>
-<input id="name" name="name" type="text" required />
-<label for="email">Email:</label>
-<input id="email" name="email" type="email" required />
-<label for="message">Order Details or Questions:</label>
-<textarea id="message" name="message" rows="3"></textarea>
-<button type="submit">Submit</button>
-</form>
+  <h2>Contact Us</h2>
+  <div class="contact-box">
+    <form>
+      <input placeholder="Your Name" required>
+      <input placeholder="Your Email" required>
+      <textarea id="message" rows="4"></textarea>
+      <button class="order-btn">Send Order</button>
+    </form>
+  </div>
 </section>
 
 <footer>
-<p>&copy; 2025 Custom Eggs. All rights reserved.</p>
+  <div class="footer-bottom">© 2025 Custom Eggs. All rights reserved.</div>
 </footer>
 
 <script>
-    // JavaScript for slideshow
-    let currentReview = 0;
-    const reviews = document.querySelectorAll('.review');
+const yolk=document.getElementById("yolk"),
+nutrition=document.getElementById("nutrition"),
+egg=document.getElementById("egg"),
+breed=document.getElementById("breed"),
+diet=document.getElementById("diet"),
+price=document.getElementById("price"),
+summary=document.getElementById("summary"),
+score=document.getElementById("score"),
+plan=document.getElementById("plan"),
+message=document.getElementById("message");
 
-    function showReview(index) {
-        reviews.forEach((rev, i) => { rev.classList.toggle('active', i === index); });
-    }
+let discount=0;
 
-    function prevReview() {
-        currentReview = (currentReview - 1 + reviews.length) % reviews.length;
-        showReview(currentReview);
-    }
+function setSub(name,disc,el){
+  document.querySelectorAll(".sub-box").forEach(b=>b.classList.remove("active"));
+  el.classList.add("active");
+  plan.textContent=name;
+  discount=disc;
+  update();
+}
 
-    function nextReview() {
-        currentReview = (currentReview + 1) % reviews.length;
-        showReview(currentReview);
-    }
+function update(){
+  let b="—",d="—",p=180,s=30,c="#eee";
 
-    // Optional: auto-advance reviews every 5 seconds
-    setInterval(nextReview, 5000);
+  if(yolk.value==="White"){b="Leghorn";d="White maize";c="#f5f5f5";}
+  if(yolk.value==="Pale Yellow"){b="ISA Brown";d="Balanced grains";c="#fff3b0";}
+  if(yolk.value==="Golden Yellow"){b="Rhode Island Red";d="Corn & marigold";c="#ffd54f";}
+  if(yolk.value==="Deep Orange"){b="Marans";d="Greens & alfalfa";c="#ff9800";}
+  if(yolk.value==="Greenish"){b="Araucana";d="Spirulina & greens";c="#c5e1a5";}
+
+  if(nutrition.value==="High Protein"){p+=40;s+=25;d+=", soybean";}
+  if(nutrition.value==="Low Cholesterol"){p+=30;s+=20;d+=", flaxseed";}
+  if(nutrition.value==="Omega-3 Rich"){p+=60;s+=35;d+=", chia & fish oil";}
+
+  p = Math.round(p * (1 - discount/100));
+
+  egg.style.boxShadow=`inset 0 0 0 12px ${c},0 15px 40px rgba(0,0,0,.2)`;
+  breed.textContent=b;
+  diet.textContent=d;
+  price.textContent="₹"+p;
+  score.style.width=Math.min(s,100)+"%";
+  summary.textContent=`${plan.textContent} plan | ${b} eggs | ₹${p} / 12`;
+}
+
+function proceedToOrder(){
+  message.value=`I want a ${summary.textContent}.`;
+  document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+}
+
+yolk.addEventListener("change",update);
+nutrition.addEventListener("change",update);
 </script>
+
 </body>
 </html>
