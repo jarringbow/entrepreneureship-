@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Custom Eggs - Personalized Egg Experience</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fffbea; }
+    header { background: #f7d382; padding: 30px 0; text-align: center; }
+    nav { background: #eed097; padding: 10px 0; text-align: center; }
+    nav a { margin: 0 20px; color: #61350b; text-decoration: none; font-weight: bold; }
+    section { max-width: 900px; margin: 40px auto; background: #fff8e6; padding: 30px; border-radius: 8px; }
+    h1, h2 { color: #733c00; margin-bottom: 16px; }
+    p { font-size: 17px; line-height: 1.6; }
+    /* About Me */
+    #about-me { margin-top: 25px; }
+    /* Reviews slideshow */
+    .review-container { max-width: 600px; margin: 30px auto; position: relative; text-align: center; }
+    .review { display: none; font-size: 18px; padding: 20px; background: #fdeac6; border-radius: 8px; }
+    .review.active { display: block; }
+    .review-buttons { margin-top: 20px; }
+    button { padding: 10px 20px; margin: 0 10px; font-size: 16px; border-radius: 4px; border: none; background: #e1a93a; color: #fff; cursor: pointer; }
+    button:hover { background: #d18a36; }
+    /* Review list and interact - optional for future expansion */
+    #reviews-list { margin-top: 40px; font-style: italic; }
+    /* Contact form styling */
+    form { display: flex; flex-direction: column; gap: 15px; }
+    input, select, textarea { padding: 8px; border-radius: 4px; border: 1px solid #b89e6b; }
+    button { padding: 10px; background: #e1a93a; color: #fff; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; }
+</style>
+</head>
+<body>
+<header>
+<h1>Custom Eggs</h1>
+<p>Your Personalized Egg Experience</p>
+</header>
+<nav>
+<a href="#about">About</a>
+<a href="#customize">Customize Eggs</a>
+<a href="#reviews">Reviews</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- About Me Section -->
+<section id="about">
+<h2>About Me</h2>
+<p>I am a student passionate about innovative food science and sustainable poultry farming. I am seeking to create nutritious, colorful, and customizable eggs by blending scientific research with entrepreneurial spirit. Thank you for visiting!</p>
+</section>
+
+<!-- Review Slideshow -->
+<section id="reviews">
+<h2>Customer Reviews</h2>
+<div class="review-container">
+    <div class="review active" id="review1">
+        <p>"Absolutely loved the personalized eggs! The yolk colors are vibrant, and the quality is top-notch." <br><br>- Jane D., Food Blogger</p>
+    </div>
+    <div class="review" id="review2">
+        <p>"Innovative idea and great tasting eggs! My family loves the healthy options." <br><br>- Alex K., Food Scientist</p>
+    </div>
+    <div class="review" id="review3">
+        <p>"Unique product, easy to order, and excellent customer service!" <br><br>- Minor Internet Celebrity, Food Enthusiast</p>
+    </div>
+    <div class="review" id="review4">
+        <p>"A truly scientific approach to egg color and nutrition. Highly recommended!" <br><br>- Dr. Food Science, PhD</p>
+    </div>
+    <!-- Add more reviews as needed, total of 10 -->
+</div>
+<!-- Buttons for interactivity -->
+<div class="review-buttons">
+    <button onclick="prevReview()">Previous</button>
+    <button onclick="nextReview()">Next</button>
+</div>
+</section>
+<section id="customize">
+    <h2>Customize Your Eggs</h2>
+    <table>
+        <tr>
+            <th>Select Yolk Color</th>
+            <th>Select Nutritional Property</th>
+            <th>Suggested Breed</th>
+            <th>Suggested Diet</th>
+        </tr>
+        <tr>
+            <td>
+                <select id="yolk" onchange="customize()">
+                    <option>Select</option>
+                    <option>White</option>
+                    <option>Pale Yellow</option>
+                    <option>Golden Yellow</option>
+                    <option>Deep Orange</option>
+                    <option>Greenish</option>
+                </select>
+            </td>
+            <td>
+                <select id="nutrition" onchange="customize()">
+                    <option>Select</option>
+                    <option>General Nutrition</option>
+                    <option>High Protein</option>
+                    <option>Low Cholesterol</option>
+                    <option>Rich in Omega-3</option>
+                </select>
+            </td>
+            <td id="resultBreed">Please choose options</td>
+            <td id="resultDiet">Please choose options</td>
+        </tr>
+    </table>
+    <div class="result">
+        <strong>Result:</strong> Update your options above to see your ideal hen breed and diet!
+    </div>
+</section>
+
+<script>
+    function customize() {
+        var yolk = document.getElementById('yolk').value;
+        var nutrition = document.getElementById('nutrition').value;
+        var breed = '';
+        var diet = '';
+
+        // Suggest breed and diet by yolk color and nutrition requirement
+        if (yolk === 'White') {
+            breed = 'Leghorn';
+            diet = 'White maize, wheat, minimal pigments';
+        } else if (yolk === 'Pale Yellow') {
+            breed = 'Leghorn or ISA Brown';
+            diet = 'General grains, less carotenoid-rich plants';
+        } else if (yolk === 'Golden Yellow') {
+            breed = 'Marans or Rhode Island Red';
+            diet = 'Maize, corn, some marigold petals for color';
+        } else if (yolk === 'Deep Orange') {
+            breed = 'Marans or Legbar';
+            diet = 'Alfalfa, marigold petals, green leafy vegetables';
+        } else if (yolk === 'Greenish') {
+            breed = 'Araucana';
+            diet = 'High in leafy greens, spirulina, marigold petals';
+        }
+
+        if (nutrition === 'High Protein') {
+            diet += ', soybean meal, sunflower seeds';
+        } else if (nutrition === 'Low Cholesterol') {
+            diet += ', flaxseed, canola oil, omega-3 supplements';
+        } else if (nutrition === 'Rich in Omega-3') {
+            diet += ', flaxseed, fish meal or chia';
+        } else if (nutrition === 'General Nutrition') {
+            diet += '';
+        }
+
+        document.getElementById('resultBreed').innerText = breed || 'Please choose options';
+        document.getElementById('resultDiet').innerText = diet || 'Please choose options';
+    }
+</script>
+
+
+<!-- Contact Form -->
+<section id="contact">
+<h2>Contact Us / Place Your Order</h2>
+<form>
+<label for="name">Name:</label>
+<input id="name" name="name" type="text" required />
+<label for="email">Email:</label>
+<input id="email" name="email" type="email" required />
+<label for="message">Order Details or Questions:</label>
+<textarea id="message" name="message" rows="3"></textarea>
+<button type="submit">Submit</button>
+</form>
+</section>
+
+<footer>
+<p>&copy; 2025 Custom Eggs. All rights reserved.</p>
+</footer>
+
+<script>
+    // JavaScript for slideshow
+    let currentReview = 0;
+    const reviews = document.querySelectorAll('.review');
+
+    function showReview(index) {
+        reviews.forEach((rev, i) => { rev.classList.toggle('active', i === index); });
+    }
+
+    function prevReview() {
+        currentReview = (currentReview - 1 + reviews.length) % reviews.length;
+        showReview(currentReview);
+    }
+
+    function nextReview() {
+        currentReview = (currentReview + 1) % reviews.length;
+        showReview(currentReview);
+    }
+
+    // Optional: auto-advance reviews every 5 seconds
+    setInterval(nextReview, 5000);
+</script>
+</body>
+</html>
